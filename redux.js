@@ -389,17 +389,17 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(global) {var isHostObject = __webpack_require__(8),
+	var isHostObject = __webpack_require__(8),
 	    isObjectLike = __webpack_require__(9);
 
 	/** `Object#toString` result references. */
 	var objectTag = '[object Object]';
 
 	/** Used for built-in method references. */
-	var objectProto = global.Object.prototype;
+	var objectProto = Object.prototype;
 
 	/** Used to resolve the decompiled source of functions. */
-	var funcToString = global.Function.prototype.toString;
+	var funcToString = Function.prototype.toString;
 
 	/** Used to infer the `Object` constructor. */
 	var objectCtorString = funcToString.call(Object);
@@ -458,7 +458,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	module.exports = isPlainObject;
 
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
 /* 5 */
