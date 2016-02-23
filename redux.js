@@ -57,8 +57,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 
 	exports.__esModule = true;
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	exports.compose = exports.applyMiddleware = exports.bindActionCreators = exports.combineReducers = exports.createStore = undefined;
 
 	var _createStore = __webpack_require__(2);
 
@@ -80,9 +79,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _compose2 = _interopRequireDefault(_compose);
 
-	var _utilsWarning = __webpack_require__(3);
+	var _warning = __webpack_require__(3);
 
-	var _utilsWarning2 = _interopRequireDefault(_utilsWarning);
+	var _warning2 = _interopRequireDefault(_warning);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 	/*
 	* This is a dummy function to check if the function name has been altered by minification.
@@ -91,19 +92,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	function isCrushed() {}
 
 	if (("development") !== 'production' && typeof isCrushed.name === 'string' && isCrushed.name !== 'isCrushed') {
-	  _utilsWarning2['default']('You are currently using minified code outside of NODE_ENV === \'production\'. ' + 'This means that you are running a slower development build of Redux. ' + 'You can use loose-envify (https://github.com/zertosh/loose-envify) for browserify ' + 'or DefinePlugin for webpack (http://stackoverflow.com/questions/30030031) ' + 'to ensure you have the correct code for your production build.');
+	  (0, _warning2["default"])('You are currently using minified code outside of NODE_ENV === \'production\'. ' + 'This means that you are running a slower development build of Redux. ' + 'You can use loose-envify (https://github.com/zertosh/loose-envify) for browserify ' + 'or DefinePlugin for webpack (http://stackoverflow.com/questions/30030031) ' + 'to ensure you have the correct code for your production build.');
 	}
 
-	exports.createStore = _createStore2['default'];
-	exports.combineReducers = _combineReducers2['default'];
-	exports.bindActionCreators = _bindActionCreators2['default'];
-	exports.applyMiddleware = _applyMiddleware2['default'];
-	exports.compose = _compose2['default'];
+	exports.createStore = _createStore2["default"];
+	exports.combineReducers = _combineReducers2["default"];
+	exports.bindActionCreators = _bindActionCreators2["default"];
+	exports.applyMiddleware = _applyMiddleware2["default"];
+	exports.compose = _compose2["default"];
 
 /***/ },
 /* 1 */
 /***/ function(module, exports) {
 
+	"use strict";
+
+	exports.__esModule = true;
+	exports["default"] = compose;
 	/**
 	 * Composes single-argument functions from right to left.
 	 *
@@ -111,11 +116,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @returns {Function} A function obtained by composing functions from right to
 	 * left. For example, compose(f, g, h) is identical to arg => f(g(h(arg))).
 	 */
-	"use strict";
-
-	exports.__esModule = true;
-	exports["default"] = compose;
-
 	function compose() {
 	  for (var _len = arguments.length, funcs = Array(_len), _key = 0; _key < _len; _key++) {
 	    funcs[_key] = arguments[_key];
@@ -123,7 +123,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  return function () {
 	    if (funcs.length === 0) {
-	      return arguments[0];
+	      return arguments.length <= 0 ? undefined : arguments[0];
 	    }
 
 	    var last = funcs[funcs.length - 1];
@@ -135,8 +135,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	  };
 	}
 
-	module.exports = exports["default"];
-
 /***/ },
 /* 2 */
 /***/ function(module, exports, __webpack_require__) {
@@ -144,13 +142,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 
 	exports.__esModule = true;
-	exports['default'] = createStore;
+	exports.ActionTypes = undefined;
+	exports["default"] = createStore;
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	var _isPlainObject = __webpack_require__(4);
 
-	var _lodashIsPlainObject = __webpack_require__(4);
+	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 
-	var _lodashIsPlainObject2 = _interopRequireDefault(_lodashIsPlainObject);
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 	/**
 	 * These are private action types reserved by Redux.
@@ -158,11 +157,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * If the current state is undefined, you must return the initial state.
 	 * Do not reference these action types directly in your code.
 	 */
-	var ActionTypes = {
+	var ActionTypes = exports.ActionTypes = {
 	  INIT: '@@redux/INIT'
 	};
 
-	exports.ActionTypes = ActionTypes;
 	/**
 	 * Creates a Redux store that holds the state tree.
 	 * The only way to change the data in the store is to call `dispatch()` on it.
@@ -188,7 +186,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @returns {Store} A Redux store that lets you read the state, dispatch actions
 	 * and subscribe to changes.
 	 */
-
 	function createStore(reducer, initialState, enhancer) {
 	  if (typeof initialState === 'function' && typeof enhancer === 'undefined') {
 	    enhancer = initialState;
@@ -300,7 +297,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	   * return something else (for example, a Promise you can await).
 	   */
 	  function dispatch(action) {
-	    if (!_lodashIsPlainObject2['default'](action)) {
+	    if (!(0, _isPlainObject2["default"])(action)) {
 	      throw new Error('Actions must be plain objects. ' + 'Use custom middleware for async actions.');
 	    }
 
@@ -363,17 +360,16 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 3 */
 /***/ function(module, exports) {
 
+	'use strict';
+
+	exports.__esModule = true;
+	exports["default"] = warning;
 	/**
 	 * Prints a warning in the console if it exists.
 	 *
 	 * @param {String} message The warning message.
 	 * @returns {void}
 	 */
-	'use strict';
-
-	exports.__esModule = true;
-	exports['default'] = warning;
-
 	function warning(message) {
 	  /* eslint-disable no-console */
 	  if (typeof console !== 'undefined' && typeof console.error === 'function') {
@@ -388,8 +384,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	  } catch (e) {}
 	  /* eslint-enable no-empty */
 	}
-
-	module.exports = exports['default'];
 
 /***/ },
 /* 4 */
@@ -464,7 +458,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	module.exports = isPlainObject;
 
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()) || Function('return this')()))
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
 /* 5 */
@@ -472,17 +466,16 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	exports.__esModule = true;
-
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-	exports['default'] = applyMiddleware;
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	exports.__esModule = true;
+	exports["default"] = applyMiddleware;
 
 	var _compose = __webpack_require__(1);
 
 	var _compose2 = _interopRequireDefault(_compose);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 	/**
 	 * Creates a store enhancer that applies middleware to the dispatch method
@@ -500,7 +493,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @param {...Function} middlewares The middleware chain to be applied.
 	 * @returns {Function} A store enhancer applying the middleware.
 	 */
-
 	function applyMiddleware() {
 	  for (var _len = arguments.length, middlewares = Array(_len), _key = 0; _key < _len; _key++) {
 	    middlewares[_key] = arguments[_key];
@@ -521,7 +513,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      chain = middlewares.map(function (middleware) {
 	        return middleware(middlewareAPI);
 	      });
-	      _dispatch = _compose2['default'].apply(undefined, chain)(store.dispatch);
+	      _dispatch = _compose2["default"].apply(undefined, chain)(store.dispatch);
 
 	      return _extends({}, store, {
 	        dispatch: _dispatch
@@ -530,8 +522,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	  };
 	}
 
-	module.exports = exports['default'];
-
 /***/ },
 /* 6 */
 /***/ function(module, exports) {
@@ -539,7 +529,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 
 	exports.__esModule = true;
-	exports['default'] = bindActionCreators;
+	exports["default"] = bindActionCreators;
 	function bindActionCreator(actionCreator, dispatch) {
 	  return function () {
 	    return dispatch(actionCreator.apply(undefined, arguments));
@@ -567,7 +557,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * function as `actionCreators`, the return value will also be a single
 	 * function.
 	 */
-
 	function bindActionCreators(actionCreators, dispatch) {
 	  if (typeof actionCreators === 'function') {
 	    return bindActionCreator(actionCreators, dispatch);
@@ -589,8 +578,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return boundActionCreators;
 	}
 
-	module.exports = exports['default'];
-
 /***/ },
 /* 7 */
 /***/ function(module, exports, __webpack_require__) {
@@ -598,19 +585,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 
 	exports.__esModule = true;
-	exports['default'] = combineReducers;
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	exports["default"] = combineReducers;
 
 	var _createStore = __webpack_require__(2);
 
-	var _lodashIsPlainObject = __webpack_require__(4);
+	var _isPlainObject = __webpack_require__(4);
 
-	var _lodashIsPlainObject2 = _interopRequireDefault(_lodashIsPlainObject);
+	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 
-	var _utilsWarning = __webpack_require__(3);
+	var _warning = __webpack_require__(3);
 
-	var _utilsWarning2 = _interopRequireDefault(_utilsWarning);
+	var _warning2 = _interopRequireDefault(_warning);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 	function getUndefinedStateErrorMessage(key, action) {
 	  var actionType = action && action.type;
@@ -627,8 +614,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return 'Store does not have a valid reducer. Make sure the argument passed ' + 'to combineReducers is an object whose values are reducers.';
 	  }
 
-	  if (!_lodashIsPlainObject2['default'](inputState)) {
-	    return 'The ' + argumentName + ' has unexpected type of "' + ({}).toString.call(inputState).match(/\s([a-z|A-Z]+)/)[1] + '". Expected argument to be an object with the following ' + ('keys: "' + reducerKeys.join('", "') + '"');
+	  if (!(0, _isPlainObject2["default"])(inputState)) {
+	    return 'The ' + argumentName + ' has unexpected type of "' + {}.toString.call(inputState).match(/\s([a-z|A-Z]+)/)[1] + '". Expected argument to be an object with the following ' + ('keys: "' + reducerKeys.join('", "') + '"');
 	  }
 
 	  var unexpectedKeys = Object.keys(inputState).filter(function (key) {
@@ -672,7 +659,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @returns {Function} A reducer function that invokes every reducer inside the
 	 * passed object, and builds a state object with the same shape.
 	 */
-
 	function combineReducers(reducers) {
 	  var reducerKeys = Object.keys(reducers);
 	  var finalReducers = {};
@@ -691,8 +677,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    sanityError = e;
 	  }
 
-	  return function combination(state, action) {
-	    if (state === undefined) state = {};
+	  return function combination() {
+	    var state = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+	    var action = arguments[1];
 
 	    if (sanityError) {
 	      throw sanityError;
@@ -701,7 +688,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    if (true) {
 	      var warningMessage = getUnexpectedStateShapeWarningMessage(state, finalReducers, action);
 	      if (warningMessage) {
-	        _utilsWarning2['default'](warningMessage);
+	        (0, _warning2["default"])(warningMessage);
 	      }
 	    }
 
@@ -722,8 +709,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return hasChanged ? nextState : state;
 	  };
 	}
-
-	module.exports = exports['default'];
 
 /***/ },
 /* 8 */
