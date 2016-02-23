@@ -64,21 +64,25 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _createStore2 = _interopRequireDefault(_createStore);
 
-	var _combineReducers = __webpack_require__(7);
+	var _combineReducers = __webpack_require__(8);
 
 	var _combineReducers2 = _interopRequireDefault(_combineReducers);
 
-	var _bindActionCreators = __webpack_require__(6);
+	var _bindActionCreators = __webpack_require__(7);
 
 	var _bindActionCreators2 = _interopRequireDefault(_bindActionCreators);
 
-	var _applyMiddleware = __webpack_require__(5);
+	var _applyMiddleware = __webpack_require__(6);
 
 	var _applyMiddleware2 = _interopRequireDefault(_applyMiddleware);
 
 	var _compose = __webpack_require__(1);
 
 	var _compose2 = _interopRequireDefault(_compose);
+
+	var _utilsWarning = __webpack_require__(5);
+
+	var _utilsWarning2 = _interopRequireDefault(_utilsWarning);
 
 	/*
 	* This is a dummy function to check if the function name has been altered by minification.
@@ -87,9 +91,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function isCrushed() {}
 
 	if (isCrushed.name !== 'isCrushed' && ("development") !== 'production') {
-	  /*eslint-disable no-console */
-	  console.error('You are currently using minified code outside of NODE_ENV === \'production\'. ' + 'This means that you are running a slower development build of Redux. ' + 'You can use loose-envify (https://github.com/zertosh/loose-envify) for browserify ' + 'or DefinePlugin for webpack (http://stackoverflow.com/questions/30030031) ' + 'to ensure you have the correct code for your production build.');
-	  /*eslint-enable */
+	  _utilsWarning2['default']('You are currently using minified code outside of NODE_ENV === \'production\'. ' + 'This means that you are running a slower development build of Redux. ' + 'You can use loose-envify (https://github.com/zertosh/loose-envify) for browserify ' + 'or DefinePlugin for webpack (http://stackoverflow.com/questions/30030031) ' + 'to ensure you have the correct code for your production build.');
 	}
 
 	exports.createStore = _createStore2['default'];
@@ -387,6 +389,38 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 5 */
+/***/ function(module, exports) {
+
+	/**
+	 * Prints a warning in the console if it exists.
+	 *
+	 * @param {String} message The warning message.
+	 * @returns {void}
+	 */
+	'use strict';
+
+	exports.__esModule = true;
+	exports['default'] = warning;
+
+	function warning(message) {
+	  /* eslint-disable no-console */
+	  if (typeof console !== 'undefined' && typeof console.error === 'function') {
+	    console.error(message);
+	  }
+	  /* eslint-enable no-console */
+	  try {
+	    // This error was thrown as a convenience so that you can use this stack
+	    // to find the callsite that caused this warning to fire.
+	    throw new Error(message);
+	    /* eslint-disable no-empty */
+	  } catch (e) {}
+	  /* eslint-enable no-empty */
+	}
+
+	module.exports = exports['default'];
+
+/***/ },
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -452,7 +486,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 6 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -511,7 +545,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 7 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -531,11 +565,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _utilsMapValues2 = _interopRequireDefault(_utilsMapValues);
 
-	var _utilsPick = __webpack_require__(8);
+	var _utilsPick = __webpack_require__(9);
 
 	var _utilsPick2 = _interopRequireDefault(_utilsPick);
 
-	/* eslint-disable no-console */
+	var _utilsWarning = __webpack_require__(5);
+
+	var _utilsWarning2 = _interopRequireDefault(_utilsWarning);
 
 	function getUndefinedStateErrorMessage(key, action) {
 	  var actionType = action && action.type;
@@ -620,7 +656,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    if (true) {
 	      var warningMessage = getUnexpectedStateShapeWarningMessage(state, finalReducers, action);
 	      if (warningMessage) {
-	        console.error(warningMessage);
+	        _utilsWarning2['default'](warningMessage);
 	      }
 	    }
 
@@ -643,7 +679,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 8 */
+/* 9 */
 /***/ function(module, exports) {
 
 	/**
