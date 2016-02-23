@@ -1,0 +1,6 @@
+{
+    "repos": "https://github.com/rackt/redux.git",
+    "name": "redux",
+    "main": "redux.js",
+    "version": "v3.0.4"
+}
